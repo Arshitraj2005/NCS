@@ -1,33 +1,24 @@
 import subprocess
-import yt_dlp
 import random
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Load your YouTube stream key securely
 STREAM_KEY = os.getenv("STREAM_KEY")
 RTMP_URL = f"rtmp://a.rtmp.youtube.com/live2/{STREAM_KEY}"
 
-# NCS playlist URL
-PLAYLIST_URL = "https://www.youtube.com/playlist?list=PLRBp0Fe2GpgnIh0AiYKh7o7z3rGkJ0j6l"
-
-def get_video_urls(playlist_url):
-    """Fetch all video URLs from the playlist"""
-    ydl_opts = {
-        'quiet': True,
-        'extract_flat': False  # ✅ FIXED: Full extraction
-    }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(playlist_url, download=False)
-        entries = info.get('entries', [])
-        urls = [entry['webpage_url'] for entry in entries if 'webpage_url' in entry]
-        random.shuffle(urls)
-        return urls
+# ✅ Direct NCS video URLs
+NCS_VIDEOS = [
+    "https://www.youtube.com/watch?v=J2X5mJ3HDYE",  # Alan Walker - Fade
+    "https://www.youtube.com/watch?v=VtKbiyyVZks",  # Elektronomia - Sky High
+    "https://www.youtube.com/watch?v=7wNb0pHyGuI",  # Tobu - Hope
+    "https://www.youtube.com/watch?v=8ZcmTl_1ER8",  # DEAF KEV - Invincible
+    "https://www.youtube.com/watch?v=RXLzvo6kvVQ",  # Janji - Heroes Tonight
+    # Add more if you want
+]
 
 def stream_video(video_url):
-    """Get direct audio URL and stream it via FFmpeg"""
     ydl_cmd = [
         "yt-dlp", "-f", "bestaudio[ext=mp4]/bestaudio",
         "-g", video_url
@@ -42,10 +33,9 @@ def stream_video(video_url):
     subprocess.run(ffmpeg_cmd)
 
 def start_stream():
-    """Main loop to stream songs endlessly"""
     while True:
-        urls = get_video_urls(PLAYLIST_URL)
-        for url in urls:
+        random.shuffle(NCS_VIDEOS)
+        for url in NCS_VIDEOS:
             try:
                 print(f"Streaming: {url}")
                 stream_video(url)
