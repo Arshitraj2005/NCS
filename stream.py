@@ -7,8 +7,8 @@ load_dotenv()
 STREAM_KEY = os.getenv("STREAM_KEY")
 RTMP_URL = f"rtmp://a.rtmp.youtube.com/live2/{STREAM_KEY}"
 
-# ✅ 6-Hour NCS Mix (Stable, Public)
-NCS_MIX_URL = "https://www.youtube.com/watch?v=Z4vkF4VDQBM"
+# ✅ Your chosen video
+VIDEO_URL = "https://www.youtube.com/watch?v=kbTUKUPjJY0"
 
 def stream_video(video_url):
     try:
@@ -30,8 +30,8 @@ def stream_video(video_url):
 
 def start_stream():
     while True:
-        print(f"🎵 Streaming NCS Mix: {NCS_MIX_URL}")
-        stream_video(NCS_MIX_URL)
+        print(f"🎵 Streaming: {VIDEO_URL}")
+        stream_video(VIDEO_URL)
 
 if __name__ == "__main__":
     start_stream()
