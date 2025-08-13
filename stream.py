@@ -8,7 +8,7 @@ STREAM_KEY = os.getenv("STREAM_KEY")
 RTMP_URL = f"rtmp://a.rtmp.youtube.com/live2/{STREAM_KEY}"
 
 # ✅ 6-Hour NCS Mix (Stable, Public)
-NCS_MIX_URL = "https://www.youtube.com/watch?v=pstjlDxdRQs"
+NCS_MIX_URL = "https://www.youtube.com/watch?v=Z4vkF4VDQBM"
 
 def stream_video(video_url):
     try:
