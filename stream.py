@@ -17,13 +17,12 @@ def get_video_urls(playlist_url):
     """Fetch all video URLs from the playlist"""
     ydl_opts = {
         'quiet': True,
-        'extract_flat': True,
-        'force_generic_extractor': True,
+        'extract_flat': False  # ✅ FIXED: Full extraction
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(playlist_url, download=False)
         entries = info.get('entries', [])
-        urls = [entry['url'] for entry in entries if 'url' in entry]
+        urls = [entry['webpage_url'] for entry in entries if 'webpage_url' in entry]
         random.shuffle(urls)
         return urls
 
