@@ -29,8 +29,12 @@ def stream_video(video_url):
             "-g", video_url
         ]
         direct_url = subprocess.check_output(ydl_cmd).decode().strip()
-    except subprocess.CalledProcessError:
-        print(f"⚠️ Failed to fetch stream URL: {video_url}")
+    except subprocess.CalledProcessError as e:
+        print(f"⚠️ yt-dlp error: {e.stderr}")
+        return
+
+    if not direct_url.startswith("http"):
+        print("⚠️ Invalid stream URL received.")
         return
 
     ffmpeg_cmd = [
