@@ -19,10 +19,15 @@ def get_playlist_videos(playlist_url):
         print("⚠️ Failed to fetch playlist data.")
         return []
 
-# ✅ Step 2: Stream a single video
+# ✅ Step 2: Stream a single video with cookies
 def stream_video(video_url):
     try:
-        ydl_cmd = ["yt-dlp", "-f", "bestaudio[ext=mp4]/bestaudio", "-g", video_url]
+        ydl_cmd = [
+            "yt-dlp",
+            "--cookies", "cookies.txt",  # ✅ Use authentication cookies
+            "-f", "bestaudio[ext=mp4]/bestaudio",
+            "-g", video_url
+        ]
         direct_url = subprocess.check_output(ydl_cmd).decode().strip()
     except subprocess.CalledProcessError:
         print(f"⚠️ Failed to fetch stream URL: {video_url}")
